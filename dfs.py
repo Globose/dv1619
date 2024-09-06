@@ -19,16 +19,3 @@ def dfs(grid, start, end):
         path = track_grid(grid, end)
     grid_route = reset_grid(grid, path)
     return len(path), grid_route
-
-def main():
-    grid = None
-    with open('grid.txt', "r") as file:
-        grid = file.read().split("\n")
-        for i, line in enumerate(grid):
-            grid[i] = list(line)
-    path_len, dfs_grid = dfs(grid, (1,0), (18,9))
-    print(dfs_grid)
-    print("len:",path_len)
-
-if __name__ == '__main__':
-    main()

@@ -1,4 +1,4 @@
-from bfs import grid_get, reset_grid
+from bfs import grid_get
 
 def reconstruct(grid, root, node):
     path = set()
@@ -44,16 +44,4 @@ def astar(grid, start, end):
                     root[temp] = current
                     if temp not in nodes:
                         nodes.add(temp)
-    return False
-
-def main():
-    grid = None
-    with open('grid.txt', "r") as file:
-        grid = file.read().split("\n")
-        for i, line in enumerate(grid):
-            grid[i] = list(line)
-    path_len, route = astar(grid, (1,0), (18,9))
-    print(route)
-
-if __name__ == '__main__':
-    main()
+    return reconstruct(grid, None, None)

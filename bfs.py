@@ -1,5 +1,3 @@
-"""Breadth first search"""
-
 from collections import deque
 
 def grid_get(grid, cords):
@@ -54,16 +52,3 @@ def bfs(grid, start, end):
         path = track_grid(grid, end)
     bfs_grid = reset_grid(grid, path)
     return len(path), bfs_grid
-
-def main():
-    grid = None
-    with open('grid.txt', "r") as file:
-        grid = file.read().split("\n")
-        for i, line in enumerate(grid):
-            grid[i] = list(line)
-    path_len, bfs_grid = bfs(grid, (1,0), (18,9))
-    print(bfs_grid)
-    print("len:",path_len)
-
-if __name__ == '__main__':
-    main()

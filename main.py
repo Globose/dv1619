@@ -1,17 +1,12 @@
 import bfs, dfs, astar
 
-URL = 'grid.txt'
-
-def load_grid(url):
+def main():
     grid = None
-    with open(url, "r") as file:
+    with open("grid.txt", "r") as file:
         grid = file.read().split("\n")
     for i, line in enumerate(grid):
         grid[i] = list(line)
-    return grid
 
-def main():
-    grid = load_grid(URL)
     start = (1,0)
     end = (18,9)
 
