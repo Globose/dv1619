@@ -3,7 +3,8 @@ from bfs import grid_get
 
 
 def reconstruct(grid, root, node):
-    path = set()
+    """Creates a grid showing the taken path"""
+    path = set()  # Set containing all nodes that are on the path
     while node is not None:
         path.add(node)
         node = root.get(node)
@@ -11,7 +12,7 @@ def reconstruct(grid, root, node):
     grid_route = ""
     for y, row in enumerate(grid):
         for x, _ in enumerate(row):
-            if (x, y) in path:
+            if (x, y) in path:  # Node is part of the path
                 grid_route += '*'
             else:
                 grid_route += grid[y][x]
@@ -38,13 +39,14 @@ def astar(grid, start, end):
     while len(nodes) > 0:
         current = min(nodes, key=lambda x: f_scores.get(x))
         nodes.remove(current)
-        if current == end:
+        if current == end:  # Stop when end node is found
             return reconstruct(grid, root, end)
         current_g_score = g_scores.get(current)
-        for d in dirs:
+        for d in dirs:  # Look in 4 directions
             temp = (d[0]+current[0], d[1]+current[1])
             if grid_get(grid, temp) == '1':
                 if g_scores.get(temp) is None or g_scores.get(temp) > current_g_score+1:
+                    # Updates temp node, and adds it to nodes if new
                     g_scores[temp] = current_g_score+1
                     f_scores[temp] = current_g_score+1+h(temp, end)
                     root[temp] = current
