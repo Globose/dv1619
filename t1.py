@@ -90,7 +90,7 @@ def main():
             new_population_set = mate_population(progenitor_list)
             mutated_pop = mutate_population(new_population_set, mutation_rate, n_cities)
             best_solution = [-1,np.inf,np.array([])]
-            for i in range(10000):
+            for i in range(100):
                 # if i%50==0: print(i, best_solution[1], fitnes_list.mean(), datetime.now().strftime("%d/%m/%y %H:%M"))
                 fitnes_list = get_all_fitnes(mutated_pop,cities_dict, n_population, n_cities)
                 
