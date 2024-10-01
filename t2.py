@@ -96,5 +96,6 @@ def main():
     best_solution = genetic_algorithm(population_size, num_generations, mutation_rate, crossover_rate, bounds)
     print(f"Best solution found: x = {best_solution['x']:.4f}, y = {best_solution['y']:.4f}, z = {best_solution['z']:.4f}")
     print(fitness_function(best_solution['x'], best_solution['y'], best_solution['z']))
+
 if __name__ == '__main__':
     main()
