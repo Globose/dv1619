@@ -1,6 +1,3 @@
-from t3_draw import draw_maze
-import t3_ga as ga
-
 def get_maze_data(info):
     outlist = []
     A = None
@@ -21,14 +18,28 @@ def get_maze_data(info):
         outlist.append(list(map(int, tlist)))
     return outlist
 
-def main():
-    """Main function"""
+def get_start():
+    return get_maze_data("start")[0]
+
+def get_end():
+    return get_maze_data("end")[0]
+
+def get_walls():
     width = get_maze_data("width")[0][0]
     height = get_maze_data("height")[0][0]
     vlines = get_maze_data("vlines")
     hlines = get_maze_data("hlines")
-    # ga.create_population(10, width*height)
-    draw_maze(width, height, vlines, hlines, anim=True)
-
-if __name__ == '__main__':
-    main()
+    walls = [[1 for _ in range(width+1)] for _ in range(height+1)]
+    
+    for i, row in enumerate(vlines):
+        x_value = 0
+        for vline in row:
+            x_value += vline
+            walls[i][x_value] *= 3
+    
+    for i, column in enumerate(hlines):
+        y_value = 0
+        for hline in column:
+            y_value += hline
+            walls[y_value][i] *= 2
+    return walls
