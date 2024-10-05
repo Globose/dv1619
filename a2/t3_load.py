@@ -21,6 +21,12 @@ def get_maze_data(info):
 def get_start():
     return get_maze_data("start")[0]
 
+def get_width():
+    return get_maze_data("width")[0][0]
+
+def get_height():
+    return get_maze_data("height")[0][0]
+
 def get_end():
     return get_maze_data("end")[0]
 

@@ -79,7 +79,7 @@ def genetic_algorithm(population_size, num_generations, mutation_rate, crossover
         
         best_individual = max(population, key=lambda ind: fitness_function(ind['x'], ind['y'], ind['z']))
         best_fitness = fitness_function(best_individual['x'], best_individual['y'], best_individual['z'])
-        print(f"Generation {generation + 1}: Best Fitness = {best_fitness:.4f}, x = {best_individual['x']:.4f}, y = {best_individual['y']:.4f}, z = {best_individual['z']:.4f}")
+        # print(f"Generation {generation + 1}: Best Fitness = {best_fitness:.4f}, x = {best_individual['x']:.4f}, y = {best_individual['y']:.4f}, z = {best_individual['z']:.4f}")
 
     return best_individual
 

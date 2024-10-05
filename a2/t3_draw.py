@@ -1,5 +1,8 @@
 import turtle as t
 
+dir = ((1,0), (0,1), (-1,0), (0,-1))
+block = ((1,0,3), (0,1,2), (0,0,3), (0,0,2))
+
 def draw_line(x1, y1, x2, y2):
     bsize = 35
     xo = -350
@@ -9,16 +12,16 @@ def draw_line(x1, y1, x2, y2):
     t.down()
     t.goto(x2*bsize+xo, -y2*bsize+yo)
 
-def draw(walls, anim = True):
+def draw(walls, start, end, anim=True):
     t.speed(1)
     if not anim:
         t.Screen().tracer(0)
     
     t.color("blue")
-    draw_line(0,0, 1,1)
+    draw_line(start[0],start[1], start[0]+1,start[1]+1)
 
     t.color("red")
-    draw_line(18, 6, 19,7)
+    draw_line(end[0], end[1], end[0]+1,end[1]+1)
     
     t.color("black")
     for y, row in enumerate(walls):
@@ -31,38 +34,22 @@ def draw(walls, anim = True):
     if not anim:
         t.Screen().update()
 
-def draw_solution(solution_set):
-    t.Screen().tracer(1)
-    t.color("green")
-    x1, y1 = solution_set[0]
-    for cords in solution_set:
-        x2, y2 = cords
-        draw_line(x1+.5,y1+.5,x2+.5,y2+.5)
-        x1, y1 = x2, y2
-    t.done()
-
-def draw_genome(genome, start, length):
+def draw_genome(genome, walls, start, end):
     t.Screen().tracer(1)
     t.color("orange")
-    x1, y1 = start
-    x1 += .5
-    y1 += .5
-    path_len = 0
-    for dir in genome:
-        if dir == 0: # right
-            draw_line(x1,y1,x1+1,y1)
-            x1 += 1
-        elif dir == 1: # down
-            draw_line(x1,y1,x1,y1+1)
-            y1 += 1
-        elif dir == 2: # left
-            draw_line(x1,y1,x1-1,y1)
-            x1 -= 1
-        else: # up
-            draw_line(x1,y1,x1,y1-1)
-            y1 -= 1
-        path_len += 1
-        if path_len >= length:
-            break
+    x,y = start
+    visited = {(x,y)}
+    step = 0
+    while step < len(genome):
+        d = genome[step]
+        new_node = (x+dir[d][0], y+dir[d][1])
+        fail = walls[y+block[d][1]][x+block[d][0]] % block[d][2] == 0
+        if new_node not in visited and not fail:
+            visited.add(new_node)
+            draw_line(x+.5,y+.5,new_node[0]+.5,new_node[1]+.5)
+            x = new_node[0]
+            y = new_node[1]
+            if x == end[0] and y == end[1]:
+                break
+        step += 1
     t.done()
-

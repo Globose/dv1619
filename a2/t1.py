@@ -3,9 +3,6 @@ import random
 from datetime import datetime
 import logging
 
-POPULATIONS = (10, 20, 50, 100)
-MUTATION_RATES = (0.1, 0.3, 0,6, 0.9)
-
 def compute_city_distance_coordinates(a,b):
     return ((a[0]-b[0])**2+(a[1]-b[1])**2)**0.5
 
@@ -76,19 +73,23 @@ def mutate_population(new_population_set, mutation_rate, n_cities):
     return mutated_pop
 
 def main():
+    POPULATIONS = (10, 20, 50, 100)
+    MUTATION_RATES = (0.1, 0.3, 0,6, 0.9)
+    n_cities = 20
+
+    coordinates_list = [[x,y] for x,y in zip(np.random.randint(0,100,n_cities),np.random.randint(0,100,n_cities))]
+    names_list = np.array(['Berlin', 'London', 'Moscow', 'Barcelona', 'Rome', 'Paris', 'Vienna', 'Munich', 'Istanbul', 'Kyiv', 'Bucharest', 'Minsk', 'Warsaw', 'Budapest', 'Milan', 'Prague', 'Sofia', 'Birmingham', 'Brussels', 'Amsterdam'])
+    cities_dict = { x:y for x,y in zip(names_list,coordinates_list)}
+
     for n_population in POPULATIONS:
         for mutation_rate in MUTATION_RATES:
-            n_cities = 20
-            print(n_population, mutation_rate)
-            coordinates_list = [[x,y] for x,y in zip(np.random.randint(0,100,n_cities),np.random.randint(0,100,n_cities))]
-            names_list = np.array(['Berlin', 'London', 'Moscow', 'Barcelona', 'Rome', 'Paris', 'Vienna', 'Munich', 'Istanbul', 'Kyiv', 'Bucharest', 'Minsk', 'Warsaw', 'Budapest', 'Milan', 'Prague', 'Sofia', 'Birmingham', 'Brussels', 'Amsterdam'])
-            cities_dict = { x:y for x,y in zip(names_list,coordinates_list)}
-
+            print("Population:", n_population, "| Mutation:", mutation_rate)
             population_set = genesis(names_list, n_population, n_cities)
             fitnes_list = get_all_fitnes(population_set,cities_dict, n_population, n_cities)
             progenitor_list = progenitor_selection(population_set,fitnes_list)
             new_population_set = mate_population(progenitor_list)
             mutated_pop = mutate_population(new_population_set, mutation_rate, n_cities)
+
             best_solution = [-1,np.inf,np.array([])]
             for i in range(10000):
                 # if i%50==0: print(i, best_solution[1], fitnes_list.mean(), datetime.now().strftime("%d/%m/%y %H:%M"))
@@ -103,6 +104,7 @@ def main():
                 new_population_set = mate_population(progenitor_list)
                 
                 mutated_pop = mutate_population(new_population_set, mutation_rate, n_cities)
+            
             s = "Pop:", n_population, "Mut:", mutation_rate, "Dist:", best_solution[1]
             logging.info(s)
             
