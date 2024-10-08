@@ -51,7 +51,7 @@ def task_c(x_data, y_data):
     ax = fig.add_subplot()
     ax.plot(x_data, y_data)
     y_pred = model.predict(x_test, verbose=0).reshape(-1)
-    print(y_pred)
+    # print(y_pred)
     ax.scatter(x_test, y_pred,color='k')
     mpl.show()
 

@@ -74,7 +74,7 @@ def mutate_population(new_population_set, mutation_rate, n_cities):
 
 def main():
     POPULATIONS = (10, 20, 50, 100)
-    MUTATION_RATES = (0.1, 0.3, 0,6, 0.9)
+    MUTATION_RATES = (0.1, 0.3, 0.6, 0.9)
     n_cities = 20
 
     coordinates_list = [[x,y] for x,y in zip(np.random.randint(0,100,n_cities),np.random.randint(0,100,n_cities))]
