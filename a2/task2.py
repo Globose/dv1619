@@ -1,4 +1,4 @@
-from t2_rep import f as fitness_function
+from task2_rep import f as fitness_function
 import numpy as np
 
 # Initialize the population

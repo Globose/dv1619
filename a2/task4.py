@@ -3,6 +3,7 @@ import matplotlib.pyplot as mpl
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import root_mean_squared_error
 from keras.models import Sequential
 from keras.layers import Dense, Input
 
@@ -11,23 +12,34 @@ def task_a(x_data, y_data):
     ax = fig.add_subplot()
     ax.plot(x_data, y_data)
 
+    # Regression
     reg = LinearRegression().fit(x_data, y_data)
-    # reg_score = reg.score(x_data, y_data) 
-    ax.plot(x_data, reg.predict(x_data),color='k')
+    
+    # RMSQ
+    rmsq = root_mean_squared_error(y_data, reg.predict(x_data))
+    print("Task A RMSQ =", rmsq)
+    print("Task A MSQ =", rmsq**2)
 
-    mpl.show()
+    ax.plot(x_data, reg.predict(x_data),color='k')
+    # mpl.show()
 
 def task_b(x_data, y_data):
     fig = mpl.figure(figsize=(10,5))
     ax = fig.add_subplot()
     ax.plot(x_data, y_data)
 
+    # Regression
     poly = PolynomialFeatures(2)
     x_poly = poly.fit_transform(x_data)
     reg = LinearRegression().fit(x_poly, y_data)
+    
+    # RMSQ
+    rmsq = root_mean_squared_error(y_data, reg.predict(x_poly))
+    print("Task B RMSQ =", rmsq)
+    print("Task B MSQ =", rmsq**2)
 
     ax.plot(x_data, reg.predict(x_poly),color='k')
-    mpl.show()
+    # mpl.show()
 
 def task_c(x_data, y_data):
     x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size = 0.2, random_state = 0)
@@ -51,20 +63,24 @@ def task_c(x_data, y_data):
     ax = fig.add_subplot()
     ax.plot(x_data, y_data)
     y_pred = model.predict(x_test, verbose=0).reshape(-1)
-    # print(y_pred)
+    
+    # RMSQ
+    rmsq = root_mean_squared_error(y_test, y_pred)
+    print("Task c RMSQ =", rmsq)
+    print("Task c MSQ =", rmsq**2)
+
     ax.scatter(x_test, y_pred,color='k')
-    mpl.show()
 
 
 def main():
     x_data = np.linspace(-0.5, 0.5, 200)[:,np.newaxis]
     noise = np.random.normal(0, 0.02, x_data.shape)
     y_data = np.square(x_data) + noise
-    # y_data = x_data*2 + noise
 
     task_a(x_data, y_data)
     task_b(x_data, y_data)
     task_c(x_data, y_data)
+    mpl.show()
     
 
 if __name__ == '__main__':

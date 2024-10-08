@@ -1,6 +1,9 @@
 def get_maze_data(info):
+    """Get info maze data"""
     outlist = []
     A = None
+
+    # Open file
     with open("maze.txt", "r") as file:
         A = file.read().split("\n")
     start_index = -1
@@ -19,18 +22,23 @@ def get_maze_data(info):
     return outlist
 
 def get_start():
+    """Returns start coordinates"""
     return get_maze_data("start")[0]
 
 def get_width():
+    """Returns maze width"""
     return get_maze_data("width")[0][0]
 
 def get_height():
+    """Returns maze height"""
     return get_maze_data("height")[0][0]
 
 def get_end():
+    """Returns end coordinates"""
     return get_maze_data("end")[0]
 
 def get_walls():
+    """Returns maze wall data"""
     width = get_maze_data("width")[0][0]
     height = get_maze_data("height")[0][0]
     vlines = get_maze_data("vlines")
