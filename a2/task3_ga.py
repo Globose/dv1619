@@ -86,7 +86,9 @@ def crossover(parent1, parent2):
 def mutate(genome, mutation_rate):
     """Mutates a child genome randomly"""
     if np.random.rand() < mutation_rate:
-        genome[np.random.randint(0,len(genome))] = np.random.randint(0,4)
+        mutation_index = np.random.randint(0,len(genome))
+        genome = np.delete(genome,mutation_index)
+        genome = np.append(genome, np.random.randint(0,4))
     return genome
 
 def genetic_algorithm(population_size, generations, mutation_rate, genome_length, walls, start, end):

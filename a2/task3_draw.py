@@ -36,6 +36,7 @@ def draw(walls, start, end, anim=True):
 
 def draw_genome(genome, walls, start, end):
     t.Screen().tracer(1)
+    t.speed(2)
     t.color("orange")
     x,y = start
     visited = {(x,y)}
