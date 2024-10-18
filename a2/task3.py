@@ -14,7 +14,7 @@ def main():
     draw(walls, start, end, anim=False)
 
     # Genetic algorithm
-    genome = ga.genetic_algorithm(60, 600, 0.2, 60, walls, start, end)
+    genome = ga.genetic_algorithm(60, 500, 0.2, 60, walls, start, end)
     
     # Draw best genome path
     draw_genome(genome, walls, start, end)
